@@ -1,3 +1,6 @@
 FROM mirror.gcr.io/library/redis:8.0-alpine
 
-RUN adduser -H -D -u 1000 -G redis app
+RUN apk --no-cache add shadow \
+    && groupmod --new-name app redis \
+    && adduser -H -D -u 1000 -G app app \
+    && apk del shadow
